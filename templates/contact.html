@@ -1,1 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Sébastien Caulier</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      padding: 50px 0;
+      background-color: #282c34;
+      color: #fff;
+    }
+
+    header h1 {
+      font-size: 3em;
+      margin: 0;
+    }
+
+    .contact-info {
+      display: flex;
+      justify-content: space-between;
+      background-color: #fff;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      margin-top: -30px;
+    }
+
+    .contact-info div {
+      flex: 1;
+      margin: 0 20px;
+      text-align: center;
+    }
+
+    .contact-info h2 {
+      color: #007bff;
+      margin-bottom: 15px;
+    }
+
+    .contact-info p {
+      font-size: 1.1em;
+    }
+
+    .form-section {
+      background-color: #fff;
+      padding: 40px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      margin-top: 40px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    form input, form textarea {
+      margin-bottom: 20px;
+      padding: 15px;
+      font-size: 1.1em;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    form button {
+      padding: 15px;
+      font-size: 1.2em;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    form button:hover {
+      background-color: #0056b3;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #282c34;
+      color: #fff;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Sébastien Caulier</h1>
+    <p>Chef de projet chez BNP Paribas Leasing Solutions</p>
+  </header>
+
+  <div class="container">
+    <div class="contact-info">
+      <div>
+        <h2>Numéro de téléphone</h2>
+        <p>0629082032</p>
+      </div>
+      <div>
+        <h2>Email</h2>
+        <p>sebastien.caulier78@gmai.com</p>
+      </div>
+      <div>
+        <h2>Formation</h2>
+        <p>5MCSI2 - ESGI</p>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h2>Contactez-moi</h2>
+      <form action="mailto:sebastien.caulier78@gmai.com" method="post" enctype="text/plain">
+        <input type="text" name="name" placeholder="Votre nom" required>
+        <input type="email" name="email" placeholder="Votre email" required>
+        <textarea name="message" rows="5" placeholder="Votre message" required></textarea>
+        <button type="submit">Envoyer</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2024 Sébastien Caulier. Tous droits réservés.</p>
+  </footer>
+
+</body>
+</html>
 
