@@ -39,30 +39,10 @@ def contact():
 def histogramme():
     return render_template("histogramme.html")
 
+@app.route("/commits/")
+def histogramme():
+    return render_template("commits.html")
 
-@app.route('/commits/')
-def commits():
-    try:
-        # Récupérer les données des commits depuis l'API GitHub
-        response = requests.get('https://api.github.com/repos/OpenRSI/5MCSI_Metriques/commits')
-        response.raise_for_status()  # Vérifie les erreurs de requête HTTP
-        commits_data = response.json()
-
-        # Initialiser le compteur de minutes
-        minutes_count = [0] * 60
-        for commit in commits_data:
-            commit_date = commit['commit']['author']['date']
-            date_object = datetime.strptime(commit_date, '%Y-%m-%dT%H:%M:%SZ')
-            minutes = date_object.minute
-            minutes_count[minutes] += 1
-
-        # Préparer les données pour le tableau HTML
-        data_rows = [(i, count) for i, count in enumerate(minutes_count)]
-        return render_template("commits.html", data_rows=data_rows)
-    except requests.RequestException as e:
-        return f"Erreur de requête : {e}", 500  # Retourne l'erreur sous forme de chaîne pour le débogage
-    except Exception as e:
-        return f"Erreur : {e}", 500  # Retourne toute autre erreur sous forme de chaîne
 
 if __name__ == "__main__":
     app.run(debug=True)
