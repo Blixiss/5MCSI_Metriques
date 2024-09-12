@@ -41,7 +41,7 @@ def histogramme():
 
 @app.route("/commits/")
 def histogramme():
-    return render_template("commits.html")
+    return commits("commits.html")
 
 
 if __name__ == "__main__":
