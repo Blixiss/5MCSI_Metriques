@@ -55,11 +55,13 @@ def commits():
             minutes = date_object.minute
             minutes_count[minutes] += 1
 
-        # Préparer les données pour Google Charts
-        data_rows = [[f'{i} min', count] for i, count in enumerate(minutes_count)]
+        # Préparer les données pour le tableau HTML
+        data_rows = [(i, count) for i, count in enumerate(minutes_count)]
         return render_template("commits.html", data_rows=data_rows)
     except requests.RequestException as e:
-        return str(e), 500  # Retourne l'erreur sous forme de chaîne pour le débogage
+        return f"Erreur de requête : {e}", 500  # Retourne l'erreur sous forme de chaîne pour le débogage
+    except Exception as e:
+        return f"Erreur : {e}", 500  # Retourne toute autre erreur sous forme de chaîne
 
 if __name__ == "__main__":
     app.run(debug=True)
