@@ -34,6 +34,11 @@ def meteo():
 def mongraphique():
     return render_template("graphique.html")
 
+@app.route("/contact/")
+def contact():
+    return render_template("contact.html")
+
+
 if __name__ == "__main__":
   app.run(debug=True)
 
