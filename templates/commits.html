@@ -2,41 +2,63 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Tableau des Commits</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commits par Minute - Donut Chart</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        // Charger Google Charts
+        google.charts.load("current", {packages: ["corechart"]});
+        google.charts.setOnLoadCallback(fetchCommits);
+
+        // Fonction pour dessiner le graphique
+        function drawChart(commitMinutes) {
+            var data = google.visualization.arrayToDataTable(commitMinutes);
+
+            var options = {
+                title: 'Commits par Minute',
+                pieHole: 0.4,
+                chartArea: {width: '80%', height: '80%'}
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+            chart.draw(data, options);
         }
-        table, th, td {
-            border: 1px solid black;
+
+        // Fonction pour extraire les commits depuis l'API GitHub
+        function fetchCommits() {
+            const url = 'https://api.github.com/repos/OpenRSI/5MCSI_Metriques/commits';
+
+            // Utiliser Fetch API pour envoyer la requête
+            fetch(url)
+                .then(response => response.json())
+                .then(commits => {
+                    // Créer un tableau pour stocker les minutes des commits
+                    let commitMinutes = [['Minute', 'Nombre de Commits']];
+                    let minuteCount = Array(60).fill(0);  // Tableau pour compter les commits par minute
+
+                    // Extraire les minutes de chaque commit
+                    commits.forEach(commit => {
+                        const commitDate = new Date(commit.commit.author.date);
+                        const minute = commitDate.getMinutes();
+                        minuteCount[minute]++;
+                    });
+
+                    // Convertir minuteCount en format utilisable pour Google Charts
+                    for (let i = 0; i < minuteCount.length; i++) {
+                        if (minuteCount[i] > 0) {
+                            commitMinutes.push([i.toString() + ' min', minuteCount[i]]);
+                        }
+                    }
+
+                    // Dessiner le graphique avec les données extraites
+                    drawChart(commitMinutes);
+                })
+                .catch(error => console.error('Erreur lors de la récupération des commits:', error));
         }
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+    </script>
 </head>
 <body>
-    <h1>Nombre de Commits par Minute</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Minute</th>
-                <th>Nombre de Commits</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for minute, count in data_rows %}
-            <tr>
-                <td>{{ minute }} min</td>
-                <td>{{ count }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <h1>Commits par Minute - Donut Chart</h1>
+    <div id="donutchart" style="width: 900px; height: 500px;"></div>
 </body>
 </html>
