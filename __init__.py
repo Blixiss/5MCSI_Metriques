@@ -4,16 +4,17 @@ from flask import json
 from datetime import datetime
 from urllib.request import urlopen
 import sqlite3
-import requests
                                                                                                                                        
-app = Flask(__name__)                                                                                                                  
-                                                                                                                                       
+app = Flask(_name_)
+
 @app.route('/')
 def hello_world():
-    return render_template('hello.html') #commentaire2
+    return render_template('hello.html') #Comm2
 
-
-
+@app.route("/contact/")
+def MaPremiereAPI():
+    return render_template('contact.html')
+  
 @app.route('/tawarano/')
 def meteo():
     response = urlopen('https://samples.openweathermap.org/data/2.5/forecast?lat=0&lon=0&appid=xxx')
@@ -26,23 +27,13 @@ def meteo():
         results.append({'Jour': dt_value, 'temp': temp_day_value})
     return jsonify(results=results)
 
-
-@app.route("/rapport/")
+@app.route("/histogramme/")
 def mongraphique():
     return render_template("graphique.html")
 
-@app.route("/contact/")
-def contact():
-    return render_template("contact.html")
-
-@app.route("/histogramme/")
-def histogramme():
-    return render_template("histogramme.html")
-
 @app.route("/commits/")
-def commits():
+def moncommits():
     return render_template("commits.html")
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
+  
+if _name_ == "_main_":
+  app.run(debug=True)
